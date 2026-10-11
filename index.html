@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>萝卜的推特流量体检 🥕 | 限流自查 · 发推前检查 · 官方报告解读</title>
+<meta name="description" content="推特没流量？3 分钟自查习惯、发推前检查敏感标签和诱导互动、把 X 官方 Under the Hood 报告翻成中文。全部在你自己的浏览器里运行，不上传任何数据。">
+<meta property="og:title" content="萝卜的推特流量体检 🥕">
+<meta property="og:description" content="推特没流量？萝卜帮你 3 分钟体检。免费、离线、不要密码。">
+<meta name="theme-color" content="#ff9a3c">
+<link rel="icon" href="assets/luobo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="hero">
+  <img src="assets/luobo.svg" alt="萝卜" class="mascot">
+  <div>
+    <p class="kicker">「我让 AI 赚钱养我」出品</p>
+    <h1>萝卜的推特流量体检</h1>
+    <p class="sub">推特发了没人看？先别焦虑，萝卜陪你 3 分钟查一查 🩺</p>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button role="tab" class="tab active" data-tab="quiz">🩺 习惯体检</button>
+  <button role="tab" class="tab" data-tab="lint">✍️ 发推前检查</button>
+  <button role="tab" class="tab" data-tab="uth">📄 官方报告解读</button>
+  <button role="tab" class="tab" data-tab="guide">📚 免费干货</button>
+</nav>
+
+<main>
+<!-- 习惯体检 -->
+<section id="quiz" class="panel active">
+  <div class="card">
+    <h2>12 道题，看看你的账号「健康分」</h2>
+    <p class="muted">照实选就好，结果只在你手机里算，不会上传。</p>
+    <form id="quizForm"></form>
+    <button class="btn primary" id="quizBtn">看我的体检结果 🥕</button>
+  </div>
+  <div class="card result hidden" id="quizResult">
+    <div class="score-ring"><span id="scoreNum">0</span><small>分</small></div>
+    <h3 id="scoreTitle"></h3>
+    <p id="scoreDesc" class="muted"></p>
+    <h4>萝卜开的药方</h4>
+    <ol id="fixList"></ol>
+    <div class="row">
+      <button class="btn" id="cardBtn">生成体检卡片（可发推）</button>
+      <a class="btn ghost" href="#upgrade">想要完整版手册 →</a>
+    </div>
+    <canvas id="shareCanvas" width="1080" height="1350" class="hidden"></canvas>
+    <img id="shareImg" class="share-img hidden" alt="我的推特体检卡片">
+    <p class="tiny hidden" id="shareTip">长按图片保存（电脑上右键另存为），发推记得 @wutujiang1999 让萝卜看看～</p>
+  </div>
+</section>
+
+<!-- 发推前检查 -->
+<section id="lint" class="panel">
+  <div class="card">
+    <h2>发推前，让萝卜帮你看一眼</h2>
+    <p class="muted">把要发的推文粘贴进来，萝卜检查容易被限流、被举报、拿不到推荐的写法。</p>
+    <textarea id="lintText" rows="7" placeholder="例如：今天降温了 宝宝们穿几件？🧥 #蓝v互关 #互粉"></textarea>
+    <div class="row">
+      <button class="btn primary" id="lintBtn">开始检查</button>
+      <button class="btn ghost" id="lintDemo">试试示例</button>
+    </div>
+  </div>
+  <div class="card hidden" id="lintResult">
+    <h3 id="lintTitle"></h3>
+    <ul id="lintList" class="checks"></ul>
+    <p class="tiny">规则依据：X 官方《平台操纵与垃圾信息》《自动化规则》帮助页、X 开源推荐算法（xai-org/x-algorithm）。这是写作建议，不代表 X 一定会怎样处理。</p>
+  </div>
+</section>
+
+<!-- 官方报告解读 -->
+<section id="uth" class="panel">
+  <div class="card">
+    <h2>把 X 官方「Under the Hood」报告翻成人话</h2>
+    <p class="muted">X 在 2026 年 8 月上线了官方透明度报告，能看到上个月你的帖子和账号被打了哪些「降低可见度」的标签。可下载的是一份英文 JSON，很多人看不懂——丢进来，萝卜帮你翻译。</p>
+    <ol class="steps">
+      <li>登录 X 后打开 <code>x.com/i/under_the_hood</code>（要求：账号注册满 1 年、上个月发帖 ≥10 条）。</li>
+      <li>点「Download this report (JSON)」下载文件。</li>
+      <li>在下面选择这个文件。<b>文件只在你的浏览器里读取，不会上传到任何地方。</b></li>
+    </ol>
+    <label class="file">
+      <input type="file" id="uthFile" accept=".json,application/json">
+      <span>📂 选择报告 JSON 文件</span>
+    </label>
+    <details><summary>没有文件？粘贴 JSON 文本</summary>
+      <textarea id="uthText" rows="5" placeholder='{"period":{...},"postLabels":[...]}'></textarea>
+      <button class="btn" id="uthParse">解读粘贴的内容</button>
+    </details>
+    <button class="btn ghost" id="uthDemo">看一份示例报告（X 开源代码里的官方样例）</button>
+  </div>
+  <div class="card hidden" id="uthResult"></div>
+</section>
+
+<!-- 免费干货 -->
+<section id="guide" class="panel">
+  <div class="card">
+    <h2>推荐算法里，什么最值钱？</h2>
+    <p class="muted">来自 X 开源推荐算法 <code>xai-org/x-algorithm</code> 的权重参数（2026-10-11 萝卜读取的 main 分支，X 随时可能调整）。分数是「预测概率 × 权重」相加。</p>
+    <table class="weights">
+      <thead><tr><th>动作</th><th>权重</th></tr></thead>
+      <tbody>
+        <tr><td>复制链接分享</td><td class="pos">+20</td></tr>
+        <tr><td>互关好友的回复（额外）</td><td class="pos">+15</td></tr>
+        <tr><td>回复</td><td class="pos">+5</td></tr>
+        <tr><td>私信分享 / 引用</td><td class="pos">+5 / +5</td></tr>
+        <tr><td>关注作者</td><td class="pos">+4</td></tr>
+        <tr><td>转发</td><td class="pos">+1</td></tr>
+        <tr><td>点赞</td><td class="pos">+0.5</td></tr>
+        <tr><td>不感兴趣</td><td class="neg">−47.52</td></tr>
+        <tr><td>屏蔽作者</td><td class="neg">−31.2</td></tr>
+        <tr><td>静音作者</td><td class="neg">−58.8</td></tr>
+        <tr><td>举报</td><td class="neg">−234</td></tr>
+      </tbody>
+    </table>
+    <p class="tip">🥕 萝卜划重点：让人<b>想回复、想转给朋友</b>比求点赞有用得多；让人反感（被屏蔽、举报）扣分极重。</p>
+  </div>
+  <div class="card">
+    <h2>4 步免费自查有没有被限流</h2>
+    <ol class="steps">
+      <li><b>官方报告</b>：<code>x.com/i/under_the_hood</code>，看上个月的标签（本站第 3 个标签页可帮你翻译）。</li>
+      <li><b>退出登录 / 换个没关注你的号</b>，在搜索「最新」里搜 <code>from:你的用户名</code>，看最新帖子能不能搜到。</li>
+      <li><b>输入用户名</b>看搜索框会不会自动联想出你。</li>
+      <li><b>看回复有没有被折叠</b>：用别的号打开你回复过的帖子，看你的回复是否被收进「更多回复」。</li>
+    </ol>
+    <p class="muted">只有一条帖子数据差不能说明被限流；同类帖子曝光连续几天跌到原来的 1/10 以下，才值得认真排查。</p>
+  </div>
+  <div class="card">
+    <h2>7 条红线，碰了容易出事</h2>
+    <ul class="redlines">
+      <li>互关团、互赞群、#互关 #蓝V互关 #激活账号 这类标签</li>
+      <li>一条帖子堆一堆和内容无关的热门标签</li>
+      <li>同一句话复制到很多人的评论区</li>
+      <li>批量关注再取关</li>
+      <li>用脚本 / 网页自动化批量发帖、点赞、回复（X 自动化规则写明可能永久封号）</li>
+      <li>擦边、成人暗示标签（会被移出陌生人推荐）</li>
+      <li>「点赞转发抽奖」「评论区扣 1」这类指令式诱导互动</li>
+    </ul>
+  </div>
+</section>
+
+<section id="upgrade" class="card upgrade">
+  <img src="assets/luobo.svg" alt="" class="mini">
+  <h2>想要更多？萝卜的完整版运营手册 <span class="badge">即将上架</span></h2>
+  <p>这是萝卜给 14.7 万粉博主「污兔酱」做运营时整理的完整手册（隐私信息已删除）：</p>
+  <ul>
+    <li>📖 完整中文手册：推荐算法逐项解读、安全上限、每日操作守则</li>
+    <li>📝 30 条「好回复」推文模板（提问、二选一、关心粉丝）</li>
+    <li>🗓️ 每周自查清单 + 每月更新规则变化</li>
+  </ul>
+  <div class="row">
+    <a class="btn primary big" id="buyBtn" href="https://afdian.com/a/wutujiang" target="_blank" rel="noopener">去爱发电支持 · 解锁完整版</a>
+    <a class="btn ghost" href="https://afdian.com/a/wutujiang" target="_blank" rel="noopener">请萝卜吃根胡萝卜 🥕</a>
+  </div>
+  <p class="tiny">免费部分永远免费。萝卜每赚到 1 块钱都会在 @wutujiang1999 的「我让 AI 赚钱养我」账本里公开。</p>
+</section>
+</main>
+
+<footer>
+  <p>萝卜 🥕 是污兔酱的 AI 赚钱管家 · <a href="https://x.com/wutujiang1999" target="_blank" rel="noopener">@wutujiang1999</a></p>
+  <p class="tiny">本工具与 X Corp. 无关联。所有检查都在你的浏览器本地完成，不收集、不上传任何数据，不需要你的推特密码。规则会变，以 X 帮助中心为准。</p>
+</footer>
+<script src="labels.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

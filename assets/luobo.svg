@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="萝卜">
+  <g transform="rotate(-12 60 60)">
+    <path d="M52 26c-6-10-2-20 4-22 2 8 0 14-4 22z" fill="#6cbf5a"/>
+    <path d="M60 24c0-12 8-20 15-19-1 9-6 15-15 19z" fill="#57ad49"/>
+    <path d="M64 27c8-8 18-9 23-4-6 6-13 7-23 4z" fill="#7fcf6a"/>
+    <path d="M38 34c6-8 38-8 44 0 6 9-6 52-22 76-16-24-28-67-22-76z" fill="#ff9a3c"/>
+    <path d="M46 52h10M50 66h8M54 80h6" stroke="#e57a1f" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="52" cy="46" r="4.2" fill="#3b2a20"/><circle cx="68" cy="46" r="4.2" fill="#3b2a20"/>
+    <circle cx="53.4" cy="44.6" r="1.4" fill="#fff"/><circle cx="69.4" cy="44.6" r="1.4" fill="#fff"/>
+    <ellipse cx="45" cy="54" rx="5" ry="3" fill="#ffb3a7" opacity=".85"/><ellipse cx="75" cy="54" rx="5" ry="3" fill="#ffb3a7" opacity=".85"/>
+    <path d="M55 55q5 5 10 0" stroke="#3b2a20" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  </g>
+</svg>
