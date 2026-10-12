@@ -69,3 +69,9 @@ details{margin:8px 0 12px}summary{cursor:pointer;color:var(--muted);font-size:14
 footer{text-align:center;padding:10px 18px 30px;color:var(--muted);font-size:13px}
 @media (min-width:640px){h1{font-size:30px}.mascot{width:100px;height:100px}}
 @media (prefers-reduced-motion:reduce){.mascot{animation:none}}
+
+.soft-note{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.5}
+.tip-soft{margin-top:14px;text-align:left}
+.tip-soft a{font-weight:600;text-decoration:none}
+.cta-row{justify-content:center}
+.result .cta-row .btn{flex:1 1 200px}
