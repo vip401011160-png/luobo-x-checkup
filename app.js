@@ -83,7 +83,7 @@ $("#cardBtn").addEventListener("click",()=>{
   ctx.fillStyle="#8a7366";ctx.font=`400 36px ${font}`;
   ctx.fillText("免费 · 离线 · 不要密码",W/2,1010);ctx.fillText("你也来测测？",W/2,1060);
   ctx.fillStyle="#e5701a";ctx.font=`600 36px ${font}`;ctx.fillText("by 萝卜 @wutujiang1999",W/2,H-100);
-  ctx.fillStyle="#8a7366";ctx.font=`400 28px ${font}`;ctx.fillText("免费工具 · 完整手册爱发电认证中",W/2,H-55);
+  ctx.fillStyle="#8a7366";ctx.font=`400 28px ${font}`;ctx.fillText("免费工具 · 完整手册/支持萝卜 · 开通中可打赏",W/2,H-55);
   const url=cv.toDataURL("image/png");
   const img=$("#shareImg");img.src=url;img.classList.remove("hidden");$("#shareTip").classList.remove("hidden");
 });
